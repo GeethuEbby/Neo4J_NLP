@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Neo4j NLP Interface</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+
+	
+	<style>
+	#graph-container {
+		width: 100%;
+		height: 500px;
+		background-color: #F5F5F5;
+	}
+	
+	</style>
+	</head>
+	<body>
+		<div class="container mt-4">
+			<h1 class="text-center mb-4">Neo4j NLP Interface</h1>
+			<div class="row">
+				<div class="col-md-6">
+					 <form id="query-form">
+						<div class="form-group">
+							<label for="nlp-input">Enter NLP Query:</label>
+							<input type="text" class="form-control" id="nlp-input" placeholder="Enter NLP Query" value="What diseases are related to Anemia">
+							<span id="nlp-help" class="tooltip-text">Please enter a natural language query, e.g. 'What diseases are related to ...?' or 'What Antibiotics drugs may cause ...?' or 'What are the causes and risk factors of ...?'</span>
+						</div>
+						<button type="submit" name="submit2" id="submit" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
+			</div>
+			<div class="row mt-4">
+				<div class="col-md-12">
+					<div id="graph-container"></div>
+				</div>
+			</div>
+		</div>
+		<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+		<script src="https://unpkg.com/neo4j-driver"></script>
+		<script>
+			$(document).ready(function() {
+			//Query Employees
+			
+
+				//Query Students
+				$('#submit').click(function(event) {
+					event.preventDefault();
+					console.log("Submit 2 clicked!");
+					var nlp_query = $('#nlp-input').val();
+					$.ajax({
+						url: '/convert_nlp_to_cypher',
+						method: 'POST',
+						data: { nlp_query: nlp_query },
+						success: function(response,) {
+							console.log("response----",response)
+							drawGraph(response);
+						}
+					});
+				});
+				
+				
+				function drawGraph(cypher_query) {
+				console.log(cypher_query)
+				
+				// Add your code here to execute the cypher query and draw the graph
+				var graph_container = document.getElementById('graph-container');
+			
+
+				// Trying to get Actual Data 	
+				  var nodes = [];
+				  var edges = [];
+
+				  var driver = neo4j.driver(
+					"bolt://localhost:7687",
+					neo4j.auth.basic("neo4j", "projects")
+				  );
+
+				  var session = driver.session();
+					session.run(cypher_query)
+					  .then(function (result) {
+						console.log("result", result);
+						
+						var nodes = [];
+						var edges = [];
+						result.records.forEach(function (record) {
+						  console.log(record)
+						var data = []
+						
+						function getNode(record, nodeKey, label, group) {
+						  const node = { id: record.get(nodeKey).identity.toNumber(), label: record.get(nodeKey).properties.Name, group };
+						  const index = nodes.findIndex(n => n.id === node.id);
+						  if (index === -1) {
+							nodes.push(node);
+						  }
+						  return node;
+						}
+
+						function createEdge(record, fromKey, toKey, label, direction) {
+						  const from = record.get(fromKey).identity.toNumber();
+						  const to = record.get(toKey).identity.toNumber();
+						  const edgeDirection = direction === 'to' ? 'to' : 'undirected';
+						  return { from, to, label, font: { align: "middle" }, arrows: { to: { enabled: edgeDirection === 'to' } } };
+						}
+
+						
+					  
+						if (record.has("e") && record.has("c") && record.has("r") && record.has("r_inv")) {
+						  console.log("Node:", record.get("e").properties); // Check node properties
+						  console.log("Edge:", record.get("c").properties); // Check edge properties
+						  console.log("Relation:", record.get("r").properties); // Check Relation properties
+						  console.log("Inv_Relation:", record.get("r_inv").properties); // Check Inverse_Relation properties
+
+						  const node = getNode(record, 'e','e', 'e');
+						  const companyNode = getNode(record,'c', 'c', 'c');
+
+						  const edge = createEdge(record, 'e', 'c', record.get('r').properties.type, record.get('r').type === 'Relation' ? 'to' : 'undirected');
+						  const edge_inv = createEdge(record, 'c', 'e', record.get('r_inv').properties.inverseType, record.get('r').type === 'Relation' ? 'to' : 'undirected');
+
+						  edges.push(edge, edge_inv);
+						}
+						  
+						  
+						  
+						  if (record.has("e") && record.has("c") && record.has("r") && record.has("dr") && record.has("f")) {
+							  console.log("Node:", record.get("e").properties); // Check node properties
+							  console.log("Node:", record.get("f").properties); // Check node properties
+							  console.log("Edge:", record.get("c").properties); // Check edge properties
+							  console.log("Relation:", record.get("r").properties); // Check Relation properties
+							  console.log("dr_Relation:", record.get("dr").properties); // Check Inverse_Relation properties
+
+							  const node = getNode(record, 'e', 'e', 'e');
+							  const secNode = getNode(record, 'c', 'c', 'c');
+							  const thirdNode = getNode(record, 'f', 'f', 'f');
+
+							  const edge = createEdge(record, 'e', 'c', record.get('r').properties.type, record.get('r').type === 'Relation' ? 'to' : 'undirected');
+							  const secEdge = createEdge(record, 'e', 'f', record.get('dr').properties.type,record.get('dr').type === 'Relation' ? 'to' : 'undirected');
+							  
+
+							edges.push(edge, secEdge);
+							}
+							
+							 if (record.has("n") && record.has("c") && record.has("r") && record.has("dr") && record.has("f")) {
+							  console.log("Node:", record.get("n").properties); // Check node properties
+							  console.log("Node:", record.get("f").properties); // Check node properties
+							  console.log("Edge:", record.get("c").properties); // Check edge properties
+							  console.log("Relation:", record.get("r").properties); // Check Relation properties
+							  console.log("dr_Relation:", record.get("dr").properties); // Check Inverse_Relation properties
+
+							  const node = getNode(record, 'n', 'n', 'n');
+							  const secNode = getNode(record, 'c', 'c', 'c');
+							  const thirdNode = getNode(record, 'f', 'f', 'f');
+
+							  const edge = createEdge(record, 'n', 'c', record.get('r').properties.type, record.get('r').type === 'Relation' ? 'to' : 'undirected');
+							  const secEdge = createEdge(record, 'f', 'c', record.get('dr').properties.type,record.get('dr').type === 'Relation' ? 'to' : 'undirected');
+							  
+							
+							// Check if edge already exists before pushing
+							  const edgeExists = edges.findIndex(e => e.from === edge.from && e.to === edge.to) !== -1;
+							  const secEdgeExists = edges.findIndex(e => e.from === secEdge.from && e.to === secEdge.to) !== -1;
+
+							  if (!edgeExists) {
+								edges.push(edge);
+							  }
+
+							  if (!secEdgeExists) {
+								edges.push(secEdge);
+							  }
+							}
+						
+						
+						
+						})
+
+						
+						
+						data = {
+						  nodes: nodes,
+						  edges: edges
+						};
+						
+						console.log("data:::::", data); // Check data var
+						
+					var options = {
+						nodes: {
+								shape: 'circle',
+								 width: "50%",
+								 widthConstraint:
+										{ minimum: 50, maximum: 79,}
+							  },
+					groups: {
+					  e: {
+						color: {background: '#FDC761'}
+					  },
+					  c: {
+						color: {background: '#FD7961'}
+					  },
+					  f: {
+						color: {background: '#c994f2'}
+					  },
+					  n: {
+						color: {background: '#FDC761'}
+					  }
+					},
+					  scaling: {
+						label: {
+							enabled: true,
+							min: 10,
+							max: 20
+										}
+									  }
+				
+					};
+
+
+					var network = new vis.Network(graph_container, data, options);
+					
+					  })
+					.catch(function (error) {
+					  console.log(error);
+					})
+					.then(function () {
+					  session.close();
+					})
+					.then(function () {
+					  driver.close();
+					});
+					
+					}
+					
+		
+					
+		});
+	</script>
+</body>
+</html>
 
