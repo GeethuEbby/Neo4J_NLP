@@ -1,0 +1,54 @@
+ItemRelationshipID,First_Item_ID,First_Item_Name,Second_Item_ID,Second_Item_Name,Relation_ID,Relation,Erudite,InverseErudite,IsPalindromic,IsTransitiveClosureSafe
+523,663,Anemia,5895,"Cardiac failure, high output",2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+524,663,Anemia,6330,"Hypertension, systemic",2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+14840,663,Anemia,28825,Hematological abnormality,0,Classification,belong(s) to the category of,is the category containing,FALSE,FALSE
+525,663,Anemia,15892,Breathlessness,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+526,663,Anemia,16537,Chest pain,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+24308,663,Anemia,17115,Copper levels raised (serum or plasma),2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+527,663,Anemia,19825,Headache,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+528,663,Anemia,21207,Hypopigmentation,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+529,663,Anemia,22575,Menorrhagia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+530,663,Anemia,29112,Flow murmur,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+40476,663,Anemia,29370,Roth spots,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+23035,663,Anemia,29542,Skin discoloration,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+20330,29219,Drip arm sample,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+25730,29836,4-hydroxyphenylpyruvate hydroxylase deficiency,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+7099,9802,Penicillium marneffei,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+24572,13950,Vitamin E deficiency,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+10164,14057,Granulomatosis with polyangiitis,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+13640,10703,Red cell production reduced,663,Anemia,3,Cause-effect child-parent (subtype),is a subtype of,has subtype(s),FALSE,TRUE
+4582,6323,Hypersplenism,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+24678,29693,Haemoglobin C disease,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+33753,31544,Hemodilution,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+12678,5534,Haemolytic anaemia,663,Anemia,3,Cause-effect child-parent (subtype),is a subtype of,has subtype(s),FALSE,TRUE
+33124,31418,Familial histiocytic reticulosis,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+11770,672,Anemia secondary to blood loss,663,Anemia,3,Cause-effect child-parent (subtype),is a subtype of,has subtype(s),FALSE,TRUE
+5126,7070,Visceral leishmaniasis,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+47234,30647,Rosiglitazone,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+63056,39723,Haemophagocytic lymphohistiocytosis,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+3788,5257,Glucagonoma,663,Anemia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+7999,11068,Pyrazinamide,5375,Uric acid levels raised (plasma or serum),2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8000,11068,Pyrazinamide,5728,Hepatic failure,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8002,11068,Pyrazinamide,10703,Red cell production reduced,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+41458,11068,Pyrazinamide,11603,Rifampicin,12,Interaction,interacts with,interacts with,TRUE,FALSE
+8003,11068,Pyrazinamide,12116,Sideroblasts,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8004,11068,Pyrazinamide,13606,Urticaria,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8005,11068,Pyrazinamide,15237,Arthropathy,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8006,11068,Pyrazinamide,18924,Pyrexia,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8007,11068,Pyrazinamide,20061,Hepatocellular jaundice,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+8008,11068,Pyrazinamide,20204,Hepatomegaly,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+27147,11068,Pyrazinamide,25831,Rash,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+16582,11068,Pyrazinamide,28813,"Drugs, hormones and biological mediators",0,Classification,belong(s) to the category of,is the category containing,FALSE,FALSE
+45973,11068,Pyrazinamide,28871,Antibiotics,16,Drug family,belongs to the drug family of,is the drug family of,FALSE,FALSE
+8009,171,Acute intermittent porphyria,11068,Pyrazinamide,10,Contraindication,may contraindicate,may be contraindicated with,FALSE,FALSE
+41029,10664,Probenecid,11068,Pyrazinamide,12,Interaction,interacts with,interacts with,TRUE,FALSE
+7805,10765,Acne vulgaris,14612,Acneiform lesions,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+22231,10765,Acne vulgaris,29434,Cutaneous abscess,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+16533,10765,Acne vulgaris,28806,Bacteria and bacterial diseases,0,Classification,belong(s) to the category of,is the category containing,FALSE,FALSE
+28862,30581,Gestrinone,10765,Acne vulgaris,4,Risk factor,is a risk factor for,has risk factors,FALSE,FALSE
+38413,32581,Ethotoin,10765,Acne vulgaris,4,Risk factor,is a risk factor for,has risk factors,FALSE,FALSE
+25638,29859,Propionibacterium acnes,10765,Acne vulgaris,2,Cause-effect,may cause,may be caused by,FALSE,FALSE
+11381,10521,Prednisolone,10765,Acne vulgaris,4,Risk factor,is a risk factor for,has risk factors,FALSE,FALSE
+11380,9991,Phenytoin,10765,Acne vulgaris,4,Risk factor,is a risk factor for,has risk factors,FALSE,FALSE
+11379,6160,Cushing syndrome,10765,Acne vulgaris,4,Risk factor,is a risk factor for,has risk factors,FALSE,FALSE
+11378,3436,Danazol,10765,Acne vulgaris,4,Risk factor,is a risk factor for,has risk factors,FALSE,FALSE
